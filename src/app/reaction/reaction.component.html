@@ -1,0 +1,106 @@
+<div class='row'>
+  <!-- style="text-align:center" -->
+  <div class='col-sm-6'><h3>{{ title }}</h3></div><div class='col-sm-6 text-right'><a [routerLink] = "['log']">History</a></div>
+</div>
+<form class='form-horizontal' (submit)="onSubmit()" #form="ngForm">
+  <div class='form-group form-group-lg'>
+    <label class='col-sm-2 control-label' for="onsetDate">Onset Date:</label>
+    <div class='col-sm-3' style='display: inline-block'>
+      <input type="date"
+            class='form-control'
+            name="onsetDate"
+            [(ngModel)]="reaction.onsetDate"
+            #onset="ngModel"
+            required
+            id='onsetDate'
+            />
+    </div>
+    <label class='col-sm-1 control-label' for="onsetTime">Time:</label>
+    <div class='col-sm-3' style='display: inline-block'>
+      <input type="time"
+            class='form-control'
+            name="onsetTime"
+            [(ngModel)]="reaction.onsetTime"
+            #onset="ngModel"
+            required
+            id = 'onsetTime'
+            />
+    </div>
+  </div>
+  <div class='form-group'>
+    <label class='col-md-1 control-label' for="description">Describe:</label>
+    <div class='col-sm-10' style='display: inline-block'>
+      <input required
+             type="text"
+             class='form-control'
+             name="description"
+             placeholder="describe it"
+             [(ngModel)]="reaction.description"
+             #description="ngModel" />
+    </div>
+  </div>
+  <div class='form-group'>
+    <label class='col-sm-2 control-label' for="severity">Severity: {{ reaction.severity }}</label>
+    <!-- <div class='input-group'> -->
+      <label class='col-sm-2 control-label'>Uncomfortable (1)</label>
+      <div class='col-sm-4' style='display: inline-block'>
+        <input required
+               id = 'severity'
+               type="range"
+               min="1"
+               max="5"
+               step="0.5"
+               class='form-control'
+               name="severity"
+               value="3"
+               placeholder="describe it"
+               [(ngModel)]="reaction.severity"
+               #severity="ngModel" />
+      </div>
+       <label class='col-md-2 control-label'>Really Bad (5)</label>
+    <!-- </div> -->
+  </div>
+  <div class='form-group'>
+    <label class='col-md-2 control-label' for="treatment">Treatment Used:</label>
+    <div class='col-sm-9' style='display: inline-block'>
+      <input id="treatment"
+             type="text"
+             class='form-control'
+             name="treatment"
+             placeholder="treatment? antihistamine, inhaler, epi-pen..."
+             [(ngModel)]="reaction.treatment"
+             #treatment="ngModel" />
+    </div>
+  </div>
+  <div class='form-group'>
+    <label class='col-md-2 control-label' for="duration">Duration:</label>
+    <div class='col-sm-2' style='display: inline-block'>
+      <input id="duration"
+             type="number"
+             class='form-control'
+             name="duration"
+             [(ngModel)]="reaction.duration"
+             #duration="ngModel" />
+    </div>
+    <label class='col-md-1 control-label'>hours</label>
+  </div>
+  <div class='row'>
+    <div class='form-group'>
+      <button class='btn btn-success'
+              [disabled]="!form.valid"
+              type="submit">Store
+      </button>
+    </div>
+    <!-- <button class='btn btn-success'
+            [disabled]="!form.valid"
+            type="submit">Store
+    </button> -->
+  </div>
+    <div>
+      <!-- {{ reaction | json }}<br />
+      {{ reactions | json }} -->
+    </div>
+  </form>
+
+<!-- <app-reaction-list [reactions]='reactions'></app-reaction-list> -->
+<!-- <app-reaction-list></app-reaction-list> -->

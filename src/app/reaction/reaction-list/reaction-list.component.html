@@ -1,0 +1,13 @@
+<!-- {{ reactions | json }} -->
+<h3>{{ title }} this <div class='btn-toolbar' style='display: inline-block'>
+  <div class="btn-group mr-2" role="group">
+    <button  class="btn btn-primary" (click) = 'query(7)'>Week</button>
+    <button  class="btn" (click) = 'query(30)'>Month</button>
+    <button  class="btn" (click) = 'query()'>All</button>
+  </div>
+</div>
+</h3>
+<ul>
+  <li *ngFor="let each of reactions">{{each.onsetDate}}, {{each.onsetTime}}, - {{each.description}}
+  </li>
+</ul>
