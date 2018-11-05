@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Reaction } from './reaction';
 import { ReactionService } from './reaction.service';
+
 @Component({
   selector: 'app-reaction',
   templateUrl: './reaction.component.html',

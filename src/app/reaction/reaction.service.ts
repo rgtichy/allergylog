@@ -8,7 +8,7 @@ import { Reaction } from './reaction';
 export class ReactionService {
 
   reactions = [];
-  // numbers = [1,2,3];
+  
     constructor() { }
 
     addReaction(n: Reaction): void {

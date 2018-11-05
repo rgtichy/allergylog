@@ -6,3 +6,129 @@
     <a [routerLink] = "['']">back</a>
   </div>
 </div>
+<div class="card" style="min-height: 12rem;">
+  <!-- <img class="card-img-top" src=".../100px180/" alt="Card image cap"> -->
+  <h5 class="card-title card-header">Daily Regimen</h5>
+  <div class="card-body">
+    <ul class='card-text'>
+      <li *ngFor="let each of routineItems">{{each.time}}, {{each.description}}, : {{each.dosage}}{{each.um}}
+      </li>
+    </ul>
+    <h5 *ngIf='routineItems.length==0'>Press + to add</h5>
+  </div>
+</div>
+<div style='margin-top: 1rem;'>
+  <!-- regimen entry form -->
+  <form class='form-horizontal' (submit)="onSubmit()" #regimenForm="ngForm">
+    <div class='form-group'>
+      <label class='col-sm-1 control-label' for="description">What:</label>
+      <div class='col-sm-10' style='display: inline-block'>
+        <input id='description'
+               required
+               minlength='3'
+               type="text"
+               class='form-control'
+               name="description"
+               placeholder="what are you taking or doing, routinely?"
+               [(ngModel)]="regimen.description"
+               #description="ngModel" />
+      </div>
+    </div>
+    <div class='form-group form-group-sm'>
+      <label class='col-sm-3 col-md-1 control-label' for="onsetTime">Time:</label>
+      <div class='col-sm-4 col-md-3' style='display: inline-block'>
+        <input type="time"
+              class='form-control'
+              name="time"
+              [(ngModel)]="regimen.time"
+              #onset="ngModel"
+              required
+              id = 'time'
+              />
+      </div>
+    </div>
+    <div class='form-group'>
+      <label class='col-sm-3 col-md-2 col-lg-1 control-label' for="dosage">Dosage:</label>
+      <div class='col-sm-3 col-md-2' style='display: inline-block'>
+        <input id="dosage"
+               type="number"
+               class='form-control'
+               name="dosage"
+               [(ngModel)]="regimen.dosage"
+               #dosage="ngModel" />
+      </div>
+      <label class='col-sm-3 col-md-2 col-lg-1 control-label' for="um">Measure:</label>
+      <div class='col-sm-3 col-md-2' style='display: inline-block'>
+        <input id="um"
+               required
+               type="text"
+               list='uoms'
+               class='form-control'
+               name="um"
+               [(ngModel)]="regimen.um"
+               #um="ngModel" />
+        <datalist id='uoms'>
+        <option value="IU">International Unit</option>
+        <option value="mg">milligrams</option>
+        <option value="mcg">micrograms</option>
+        <option value="g">grams</option>
+        <option value="oz">ounces</option>
+        <option value="tsp">teaspoons</option>
+        <option value="Tbsp">tablespoons</option>
+        </datalist>
+      </div>
+        <label class='col-sm-3 col-md-2 col-lg-1 control-label' for="doseForm">Form:</label>
+        <div class='col-sm-3 col-md-2' style='display: inline-block'>
+          <input id="doseForm"
+                 type="text"
+                 list='doseForms'
+                 class='form-control'
+                 name="doseForm"
+                 [(ngModel)]="regimen.doseForm"
+                 #form="ngModel" />
+          <datalist id='doseForms'>
+            <option value="tablet"></option>
+            <option value="capsule"></option>
+            <option value="chewable"></option>
+            <option value="liquid"></option>
+            <option value="injection"></option>
+          </datalist>
+        </div>
+    </div>
+    <div class='row'>
+      <div class='col-sm-1'>
+        S<br /><input [(ngModel)]="regimen.sunday" type="checkbox" name="sunday" value="true">
+      </div>
+      <div class='col-sm-1'>
+        M<br /><input [(ngModel)]="regimen.monday" type="checkbox" name="monday" value="true">
+      </div>
+      <div class='col-sm-1'>
+        T<br /><input [(ngModel)]="regimen.tuesday" type="checkbox" name="tuesday" value="true">
+      </div>
+      <div class='col-sm-1'>
+        W<br /><input [(ngModel)]="regimen.wednesday" type="checkbox" name="wednesday" value="true">
+      </div>
+      <div class='col-sm-1'>
+        Th<br /><input [(ngModel)]="regimen.thursday" type="checkbox" name="thursday" value="true">
+      </div>
+      <div class='col-sm-1'>
+        F<br /><input [(ngModel)]="regimen.friday" type="checkbox" name="friday" value="true">
+      </div>
+      <div class='col-sm-1'>
+        Sa<br /><input [(ngModel)]="regimen.saturday" type="checkbox" name="saturday" value="true">
+      </div>
+    </div>
+    <div class='row'>
+      <div class='form-group'>
+        <button class='btn btn-success'
+                [disabled]="!regimenForm.valid"
+                type="submit">Store
+        </button>
+      </div>
+    </div>
+      <div>
+        {{ regimen | json }}
+      </div>
+    </form>
+
+</div>
