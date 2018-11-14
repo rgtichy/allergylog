@@ -10,10 +10,26 @@
   <!-- <img class="card-img-top" src=".../100px180/" alt="Card image cap"> -->
   <h5 class="card-title card-header">Daily Regimen</h5>
   <div class="card-body">
-    <ul class='card-text'>
-      <li *ngFor="let each of routineItems">{{each.time}}, {{each.description}}, : {{each.dosage}}{{each.um}}
-      </li>
-    </ul>
+    <!-- <div style="width: 48%; min-height: 10rem; border: 2px solid red; display: inline-block"> -->
+      <!-- <div>
+        <p>        Routine:        </p>
+      </div> -->
+      <ul class='card-text'>
+        <li *ngFor="let each of routineItems">{{each.time}}, {{each.description}}, : {{each.dosage}}{{each.um}}
+        </li>
+      </ul>
+    <!-- </div> -->
+    <!-- <div style="width: 48%; min-height: 10rem; border: 2px solid red; display: inline-block">
+      <div>
+        <p>
+          Regimen:
+          </p>
+      </div>
+      <ul class='card-text'>
+        <li *ngFor="let each of regimenItems">{{each.time}}, {{each.description}}, : {{each.dosage}}{{each.um}}
+        </li>
+      </ul>
+    </div> -->
     <h5 *ngIf='routineItems.length==0'>Press + to add</h5>
   </div>
 </div>
@@ -36,7 +52,7 @@
     </div>
     <div class='form-group form-group-sm'>
       <label class='col-sm-3 col-md-1 control-label' for="onsetTime">Time:</label>
-      <div class='col-sm-4 col-md-3' style='display: inline-block'>
+      <div class='col-sm-3 col-md-2 col-lg-2' style='display: inline-block'>
         <input type="time"
               class='form-control'
               name="time"
@@ -127,7 +143,7 @@
       </div>
     </div>
       <div>
-        {{ regimen | json }}
+        <!-- {{ regimen | json }} -->
       </div>
     </form>
 

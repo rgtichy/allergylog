@@ -1,3 +1,212 @@
-<p>
-  consumption works!
-</p>
+<div class='row' style='margin-top: 1rem;'>
+  <div class='col'>
+    <h3>{{ title }}:</h3>
+  </div>
+  <div class='col'>
+  </div>
+  <div class='col text-right'>
+    <a [routerLink] = "['history']">History</a>
+  </div>
+</div>
+<!-- <div>
+<p *ngIf="consumption.type=='journal'">Journal on</p>
+<p *ngIf="consumption.type=='upc'">UPC on</p>
+<p *ngIf="consumption.type=='recipe'">Recipe on</p>
+</div> -->
+<div style='margin-top: 1rem;'>
+  <!-- 3 divs, one for each type, (journal,upc,recipe): -->
+</div>
+<div style='margin-top: 1rem;'>
+  <!-- regimen entry form -->
+  <form class='form-horizontal' (submit)="onSubmit()" #consumptionForm="ngForm">
+    <div class="btn-group btn-group-toggle" style="margin: 0.5rem;">
+      <label class="btn btn-primary active">
+        <input type="radio"
+               (click)="radioClick($event)"
+               id="journal"
+               name="type"
+               autocomplete="off"
+               value="journal"
+               [(ngModel)]="consumption.type"
+               #type="ngModel"
+               />
+        Journal
+      </label>
+      <label class="btn btn-primary border-left">
+        <input type="radio"
+               (click)="radioClick($event)"
+               id="upc"
+               name="type"
+               autocomplete="off"
+               value="upc"
+               [(ngModel)]="consumption.type"
+               #type="ngModel"
+               />
+        UPC
+      </label>
+      <label class="btn btn-primary border-left">
+        <input type="radio"
+               (click)="radioClick($event)"
+               id="recipe"
+               name="type"
+               autocomplete="off"
+               value="recipe"
+               [(ngModel)]="consumption.type"
+               #type="ngModel"
+               />
+        Recipe
+      </label>
+    </div>
+    <div *ngIf="consumption.type=='journal'">
+      <div class='form-group form-group-sm'>
+        <label class='col-sm-3 col-md-1 control-label' for="time">Time:</label>
+        <div class='col-sm-4 col-md-3 col-lg-3' style='display: inline-block'>
+          <input type="time"
+                class='form-control'
+                name="time"
+                [(ngModel)]="consumption.time"
+                #time="ngModel"
+                required
+                id = 'time'
+                />
+        </div>
+      </div>
+      <div class='form-group'>
+        <label class='col-sm-1 col-md-1 col-lg-1 control-label align-top' for="description">Note:</label>
+        <div class='col-sm-5 col-md-5 col-lg-5' style='display: inline-block'>
+          <textarea id='description'
+                 required
+                 minlength='3'
+                 rows=2
+                 type="textarea"
+                 class='form-control'
+                 name="description"
+                 placeholder="What did you eat?"
+                 [(ngModel)]="consumption.description"
+                 #description="ngModel">
+          </textarea>
+        </div>
+        <label class='col-sm-3 col-md-2 col-lg-1 control-label align-top' for="ingredient">Ingredient:</label>
+        <div class='col-sm-3 col-md-2 col-lg-5 align-top' style='display: inline-block'>
+          <div class='input-group'>
+            <input id="ingredient"
+                   type="text"
+                   class='form-control'
+                   name="ingredient"
+                   [(ngModel)]="ingredient.name"
+                   />
+            <!-- <input id="um"
+                  type="text"
+                  class='form-control'
+                  name="um"
+                  [(ngModel)]="ingredient.um"
+                  /> -->
+            <div class="input-group-append">
+              <button (click)="addIngredient(ingredient.name)" type="button" class="btn btn-primary btn-sm">
+                <span>add</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class='form-group'>
+          <label class='col-sm-1 col-md-1 col-lg-1 control-label align-top' for="ingredients">Ingredients:</label>
+          <div class='col-sm-5 col-md-5 col-lg-5' style='display: inline-block'>
+            <textarea id='ingredients'
+                   rows=4
+                   disabled
+                   type="textarea"
+                   class='form-control'
+                   name="ingredients"
+                   placeholder="add ingredients"
+                   value = "{{ ingredientsList() }}"
+                   >
+            </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- upc form -->
+    <div *ngIf="consumption.type=='upc'">
+      <div class='form-group form-group-sm'>
+        <label class='col-sm-3 col-md-1 control-label' for="time">Time:</label>
+        <div class='col-sm-4 col-md-3 col-lg-3' style='display: inline-block'>
+          <input type="time"
+                class='form-control'
+                name="time"
+                [(ngModel)]="consumption.time"
+                #time="ngModel"
+                required
+                id = 'time'
+                />
+        </div>
+      </div>
+      <div class='form-group'>
+        <label class='col-sm-1 col-md-1 col-lg-1 control-label align-top' for="description">What:</label>
+        <div class='col-sm-7 col-md-6 col-lg-6' style='display: inline-block; min-height: 7rem;'>
+          <textarea id='description'
+                 required
+                 rows=2
+                 minlength='3'
+                 type="textarea"
+                 class='form-control'
+                 name="description"
+                 placeholder="What did you eat?"
+                 [(ngModel)]="consumption.description"
+                 #description="ngModel">
+          </textarea>
+        </div>
+      </div>
+      <div class='form-group form-group-sm'>
+        <label class='col-sm-1 col-md-1 col-lg-1 control-label' for='upc'>UPC:</label>
+        <div class='col-sm-5 col-md-5 col-lg-3' style="display: inline-block">
+          <div class='input-group'>
+            <input name="upc"
+                   required
+                   minlength=12
+                   placeholder="UPC"
+                   class='form-control'
+                   type='text'
+                   #upc="ngModel"
+                   [(ngModel)]="consumption.upc"
+                   id='upc'
+                   />
+            <div class="input-group-append">
+              <button type="button" class="btn btn-primary btn-sm">
+                <span>lookup</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- recipe form -->
+    <div *ngIf="consumption.type=='recipe'">
+      <div class='form-group'>
+        <label class='col-sm-1 col-md-1 col-lg-1 control-label align-top' for="recipe">Recipe:</label>
+      </div>
+    </div>
+    <!-- <div class='row'> -->
+      <div class='form-group'>
+        <button class='btn btn-success'
+                [disabled]="!consumptionForm.valid"
+                type="submit">Store
+        </button>
+      </div>
+    <!-- </div> -->
+      <div>
+        {{ consumption | json }}
+        <br />
+        {{ consumptionItems | json }}
+      </div>
+    </form>
+</div>
+<!-- <div class="card" style="min-height: 12rem;">
+  <h5 class="card-title card-header">Eaten Today</h5>
+  <div class="card-body">
+      <ul class='card-text'>
+        <li *ngFor="let each of consumptionItems">{{each.time}}, {{each.description}}
+        </li>
+      </ul>
+    <h5 *ngIf='consumptionItems.length==0'>Press + to add</h5>
+  </div>
+</div> -->

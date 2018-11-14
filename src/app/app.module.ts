@@ -12,6 +12,7 @@ import { ReactionService } from './reaction/reaction.service';
 import { DailyComponent } from './daily/daily.component';
 import { MasterComponent } from './daily/master/master.component';
 import { ConsumptionComponent } from './consumption/consumption.component';
+import { RecipeComponent } from './recipe/recipe.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { ConsumptionComponent } from './consumption/consumption.component';
     ReactionListComponent,
     DailyComponent,
     MasterComponent,
-    ConsumptionComponent
+    ConsumptionComponent,
+    RecipeComponent
   ],
   imports: [
     BrowserModule,

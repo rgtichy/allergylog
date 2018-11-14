@@ -14,6 +14,8 @@ export class Regimen {
     public thursday: Boolean = true,
     public friday: Boolean = true,
     public saturday: Boolean = true,
+    public active: Boolean = true,
+    public inactiveDate: Date = null,
     public created_at: Date = new Date(),
     public updated_at: Date = new Date()
   ) {
